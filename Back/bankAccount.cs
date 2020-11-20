@@ -3,62 +3,55 @@
 namespace Bank
 {
     public class BankAccount
-    {
-        private readonly string #_customerName;
-            private double #_Balance;
+    {   // atributos da classe
+        private readonly string m_customerName;
+        private double m_balance;
 
-            //Construtores 
-
-            public BankAccount() { } // bankAccount ba = new bankAccount ();
-
+        // construtores 
+        public BankAccount() { }  // BankAccount ba = new BankAccount();
         public BankAccount(string customerName, double balance)
         {
-
-
             m_customerName = customerName;
             m_balance = balance;
-
         }
 
-
-        //Propriedades 
-
+        // propriedades - Encapsulamento
         public string CustomerName
         {
-
-
-            get { return #_customerName}
+            get { return m_customerName; }
         }
-
-
-        public double Balance()
+        public double Balance
         {
-            Get{ return m_Balance; }
-
+            get { return m_balance; }
         }
-        //metodos da classe 
-        public void debit(double amount)
+        // métodos da classe
+        public void Debit(double amount)
         {
             if (amount > m_balance)
-
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+            m_balance -= amount;
         }
-
-    
+        public void Credit(double amount)
         {
-        throw new ArgumentOutOfRangeException('amount');
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+            m_balance += amount;
         }
-    m_Balance += amount;
-}
-        
 
-     
         public static void Main()
         {
-    bankAccount ba = new bankAccount('wellington', 11.99);
-
-
-
-            Console.WriteLine("Hello World!");
+            BankAccount ba = new BankAccount("Wellington", 11.99);
+            ba.Credit(5.77);
+            ba.Debit(11.22);
+            Console.WriteLine("Current balance id ${0}", ba.Balance);
         }
     }
 }
